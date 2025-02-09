@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Isha Will You Be My Valentine?</title>
+    <title>Isha, Will You Be My Valentine?</title>
     <style>
         body {
             display: flex;
@@ -38,7 +38,7 @@
             font-size: 18px;
         }
         #yes {
-            background-color: #28a745;  /* ✅ Fixed green color */
+            background-color: #28a745;
             color: white;
         }
         #no, #noMove {
@@ -50,23 +50,38 @@
         }
         /* Updated "OH" text */
         .oh-text {
-            font-size: 60px;  /* Bigger font */
-            color: orange;  /* Orange color */
-            font-family: 'Courier New', Courier, monospace;  /* Better font */
+            font-size: 60px;
+            color: orange;
+            font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between images */
+        }
+        .image-container img {
+            width: 48%;
+            height: auto;
+            border-radius: 10px; /* Optional rounded corners */
         }
     </style>
 </head>
 <body>
+
     <!-- Background Music -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="/mnt/data/close-friends.mp3" type="audio/mp3">  <!-- ✅ Fixed file reference -->
-        Your browser does not support the audio element.
+    <audio id="backgroundMusic" autoplay >
+        <source src="close-friends.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Love Song (Plays When "Yes" Button is Clicked) -->
+    <audio id="loveSong">
+        <source src="Don-Toliver-BACKSTREETS-Ft-Teezo-Touchdown-(HipHopKit.com).mp3" type="audio/mp3">
     </audio>
 
     <!-- Main Page -->
     <div id="mainPage" class="container">
-        <h1>Isha Will You Be My Valentine? ❤️</h1>
+        <h1>Isha, Will You Be My Valentine? ❤️</h1>
         <div class="buttons">
             <button id="yes" onclick="showLovePage()">Yes</button>
             <button id="no" onclick="showReasonsPage()">No</button>
@@ -79,41 +94,27 @@
         <p>Ur so pretty!</p>
         
         <!-- First image stays on its own line -->
-        <img src="img/IMG_2233.jpeg" alt="Cute Picture of You" width="100%">
+        <img src="IMG_2233.jpeg" alt="Cute Picture of You" width="100%">
     
         <!-- Last two images are placed side by side -->
         <div class="image-container">
-            <img src="img/IMG_2310.jpeg" alt="Another Cute Picture of You">
-            <img src="img/lp_image.jpeg" alt="Another Cute Picture of You">
+            <img src="IMG_2310.jpeg" alt="Another Cute Picture of You">
+            <img src="lp_image.jpeg" alt="Another Cute Picture of You">
         </div>
-        <p>Isha ever since the day I  met you I felt something special. I enjoyed spending time with you from day one, even with no idea that it would end up with me wanting to spend forever with you. From the Push up-vid, to literally today I have allways felt so conmfortable around you. Just able to be myself, and I dont have to care. Isha I LOVE YOU SO MUCH HAPPY VALENTINES DAY and I hope for many many more.</p>
+
+        <p>Isha, ever since the day I met you I felt something special. I enjoyed spending time with you from day one, even with no idea that it would end up with me wanting to spend forever with you. From the push-up vid to literally today, I have always felt so comfortable around you. Just able to be myself, and I don't have to care. Isha, I LOVE YOU SO MUCH! Happy Valentine's Day, and I hope for many, many more. ❤️</p>
     </div>
-    
-    <style>
-        .image-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px; /* Space between images */
-        }
-    
-        .image-container img {
-            width: 48%; /* Each image takes up half the row */
-            height: auto;
-            border-radius: 10px; /* Optional rounded corners */
-        }
-    </style>
-    
 
     <!-- "Reasons I Love You" Page -->
     <div id="reasonsPage" class="container hidden">
-        <h1 class="oh-text">OH</h1> <!-- Applied new styling here -->
-        <img src="img\IMG_2029.png" alt="Beautiful Picture of You" width="85%">
-        <p>1. So you should be bc</p>
-        <p>1. You're always there for me and imma always eb there for you</p>
-        <p>2. You always know how to make me laugh</p>
-        <p>3. You so fine </p>
-        <p>4. I GET TO BE YOU HONEY BOO BOO BEAR 😍</p>
-      
+        <h1 class="oh-text">OH</h1>
+        <img src="IMG_2029.png" alt="Beautiful Picture of You" width="85%">
+        <p>1. So you should be because...</p>
+        <p>2. You're always there for me, and I'm always going to be there for you.</p>
+        <p>3. You always know how to make me laugh.</p>
+        <p>4. You so fine! 😍</p>
+        <p>5. I GET TO BE YOUR HONEY BOO BOO BEAR! 🥰</p>
+
         <h2>Will You Be My Valentine? ❤️</h2>
         <div class="buttons">
             <button id="yes" onclick="showLovePage()">Yes</button>
@@ -122,6 +123,22 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("backgroundMusic");
+
+            // Try to autoplay
+            let playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // If autoplay is blocked, play on first user interaction
+                    document.body.addEventListener("click", function () {
+                        audio.play();
+                    }, { once: true }); // Runs only once
+                });
+            }
+        });
+
         function showLovePage() {
             document.getElementById("mainPage").classList.add("hidden");
             document.getElementById("reasonsPage").classList.add("hidden");
@@ -129,6 +146,10 @@
 
             // Stop Background Music
             document.getElementById("backgroundMusic").pause();
+
+            // Play New Song
+            let loveSong = document.getElementById("loveSong");
+            loveSong.play();
         }
 
         function showReasonsPage() {
